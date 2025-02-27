@@ -4,6 +4,7 @@ from dash.dependencies import Input, Output
 import dash_table
 import pandas as pd
 import plotly.express as px
+import os
 
 # Cargar bases de datos
 url_coacel = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS3uqYngG2O1K07T4FMip3zvB1K1hLfKnFyxwEizn9R58-NQsxncOAKi2bWtH_Y81AqC8SazM1dqfSB/pub?gid=0&single=true&output=csv"
@@ -17,6 +18,7 @@ df = pd.concat([df_coacel, df_convivir])
 
 # Inicializar la aplicación
 app = dash.Dash(__name__)
+server = app.server  # Importante para Gunicorn
 
 # Layout de la aplicación
 app.layout = html.Div([
@@ -135,4 +137,5 @@ def mostrar_grafico(base_de_datos, buscar_producto, empresa, categoria):
 
 # Ejecutar la aplicación
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    port = int(os.environ.get('PORT', 8080))
+    app.run_server(debug=True, host='0.0.0.0', port=port)
