@@ -1,0 +1,13 @@
+version: 2
+services:
+  - type: web
+    name: app-gluten-free
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: PORT
+        value: 8080
+    allowOverride: true

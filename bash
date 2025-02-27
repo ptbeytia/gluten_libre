@@ -1,0 +1,1 @@
+pip install dash dash-core-components dash-html-components dash-table pandas plotly
